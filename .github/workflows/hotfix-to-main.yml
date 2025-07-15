@@ -5,26 +5,27 @@ on:
     branches:
       - hotfix
 
+permissions:
+  contents: write
+
 jobs:
   merge-hotfix:
     runs-on: ubuntu-latest
-
     steps:
-      # Faz o clone completo (para ter todas as branches)
-      - name: Checkout repository
+      - name: Checkout completo
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      # Configura o usuário Git da Actions
-      - name: Configure Git for Actions
+      - name: Configura Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Mescla hotfix na main
-      - name: Merge hotfix into main
+      - name: Mesclar hotfix em main
         run: |
           git checkout main
-          git merge --no-ff hotfix -m "chore: merge hotfix into main [skip ci]"
-          git push origin main
+          git merge --no-ff hotfix -m "chore: merge hotfix into main"
+          
+      - name: Push para main
+        run: git push origin main
