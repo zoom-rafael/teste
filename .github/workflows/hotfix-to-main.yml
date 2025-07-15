@@ -25,7 +25,7 @@ jobs:
       - name: Mesclar hotfix em main
         run: |
           git checkout main
-          git merge --no-ff hotfix -m "chore: merge hotfix into main"
+          git merge --no-ff hotfix -m "runner: merge hotfix into main"
           
       - name: Push para main
         run: git push origin main
