@@ -4,30 +4,30 @@ on:
   push:
     branches:
       - main
+  workflow_run:
+    workflows:
+      - Hotfix to Main
+    types:
+      - completed
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # 1) Faz checkout do código
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2) Configura a versão do Python (substitua pela versão que usa)
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      # 3) Instala dependências
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # 4) (Opcional) Executa comandos de lint/test se quiser, 
-      #    mas aqui só fazemos o build
       - name: Build package
         run: |
           python -m build  # requer pyproject.toml e build-backend configurado
